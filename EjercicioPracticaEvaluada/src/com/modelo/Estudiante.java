@@ -13,15 +13,21 @@ public class Estudiante {
     private String nombre;
     private int edad;
     private String genero;
+    private double cum;
+    private String intereses;
+    private int codigoCarrera;
 
     public Estudiante() {
     }
 
-    public Estudiante(int codigoEstudiante, String nombre, int edad, String genero) {
+    public Estudiante(int codigoEstudiante, String nombre, int edad, String genero, double cum, String intereses, int codigoCarrera) {
         this.codigoEstudiante = codigoEstudiante;
         this.nombre = nombre;
         this.edad = edad;
         this.genero = genero;
+        this.cum = cum;
+        this.intereses = intereses;
+        this.codigoCarrera = codigoCarrera;
     }
 
     public int getCodigoEstudiante() {
@@ -55,5 +61,30 @@ public class Estudiante {
     public void setGenero(String genero) {
         this.genero = genero;
     }
+
+    public double getCum() {
+        return cum;
+    }
+
+    public void setCum(double cum) {
+        this.cum = cum;
+    }
+
+    public String getIntereses() {
+        return intereses;
+    }
+
+    public void setIntereses(String intereses) {
+        this.intereses = intereses;
+    }
+
+    public int getCodigoCarrera() {
+        return codigoCarrera;
+    }
+
+    public void setCodigoCarrera(int codigoCarrera) {
+        this.codigoCarrera = codigoCarrera;
+    }
+    
     
 }
