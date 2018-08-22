@@ -43,7 +43,7 @@ on update cascade on delete no action
 delimiter $
 create procedure insertarFacultad(in nombre varchar(50), in telefono varchar(20))
 begin
-	insert into facultad values(nombre,telefono);
+	insert into facultad (nombre,telefono) values(nombre,telefono);
 end $
 
 drop procedure insertarFacultad;
@@ -100,7 +100,7 @@ end $
 delimiter $
 create procedure insertarCarrera(in nombre varchar(50), in cantidadMaterias int(11), in codigoFac int(11))
 begin
-	insert into carrera values(nombre,cantidadMaterias,codigoFac);
+	insert into carrera (nombre,cantidadMaterias,codigoFactura) values(nombre,cantidadMaterias,codigoFac);
 end $
 
 drop procedure insertarCarrera;
@@ -157,7 +157,7 @@ end $
 delimiter $
 create procedure insertarEstudiante(in nombre varchar(50), in edad int(11), in genero varchar(50), in cum double, in intereses varchar(75), in codigoCar int(11))
 begin
-	insert into estudiante values(nombre,edad,genero,cum,intereses,codigoCar);
+	insert into estudiante (nombre,edad,genero,cum,intereses,codigoCarrera) values(nombre,edad,genero,cum,intereses,codigoCar);
 end $
 
 drop procedure insertarEstudiante;
