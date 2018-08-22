@@ -44,7 +44,7 @@ public class DaoFacultad extends Conexion{
         try 
         {
             this.conectar();
-            String sql = "call modififaFacultad(?,?,?,)";
+            String sql = "call modififaFacultad(?,?,?)";
             PreparedStatement pre = this.getCon().prepareCall(sql);
             pre.setInt(1, fa.getCodigoFacultad());
             pre.setString(2, fa.getNombre());
