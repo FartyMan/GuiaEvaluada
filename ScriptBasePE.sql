@@ -41,10 +41,12 @@ on update cascade on delete no action
 
 -- Facultad --
 delimiter $
-create procedure insertarFacultad(in codigoFac int(11), in nombre varchar(50), in telefono varchar(20))
+create procedure insertarFacultad(in nombre varchar(50), in telefono varchar(20))
 begin
-	insert into facultad values(codigoFac,nombre,telefono);
+	insert into facultad values(nombre,telefono);
 end $
+
+drop procedure insertarFacultad;
 
 delimiter $
 create procedure modificarFacultad(in codigoFac int(11), in nombre varchar(50), in telefono varchar(20))
@@ -96,10 +98,12 @@ end $
 
 -- Carrera --
 delimiter $
-create procedure insertarCarrera(in codigoCar int(11), in nombre varchar(50), in cantidadMaterias int(11), in codigoFac int(11))
+create procedure insertarCarrera(in nombre varchar(50), in cantidadMaterias int(11), in codigoFac int(11))
 begin
-	insert into carrera values(codigoCar,nombre,cantidadMaterias,codigoFac);
+	insert into carrera values(nombre,cantidadMaterias,codigoFac);
 end $
+
+drop procedure insertarCarrera;
 
 delimiter $
 create procedure modificarCarrera(in codigoCar int(11), in nombre varchar(50), in cantidadMaterias int(11), in codigoFac int(11))
@@ -151,10 +155,12 @@ end $
 
 -- Estudiante --
 delimiter $
-create procedure insertarEstudiante(in codigoEst int(11), in nombre varchar(50), in edad int(11), in genero varchar(50), in cum double, in intereses varchar(75), in codigoCar int(11))
+create procedure insertarEstudiante(in nombre varchar(50), in edad int(11), in genero varchar(50), in cum double, in intereses varchar(75), in codigoCar int(11))
 begin
-	insert into estudiante values(codigoEst,nombre,edad,genero,cum,intereses,codigoCar);
+	insert into estudiante values(nombre,edad,genero,cum,intereses,codigoCar);
 end $
+
+drop procedure insertarEstudiante;
 
 delimiter $
 create procedure modificarEstudiante(in codigoEst int(11), in nombre varchar(50), in edad int(11), in genero varchar(50), in cum double, in intereses varchar(75), in codigoCar int(11))
@@ -198,7 +204,7 @@ begin
 	select * from estudiante where codigoEstudiante=codigoEst and estado=2;
 end $
 
-call insertarFacultad(1,"Biología","(503)2222-2222");
+call insertarFacultad("Biología","(503)2222-2222");
 call modificarFacultad(1,"Ciencias Naturales","(503)2222-2222");
 call eliminarFacultad(1);
 call mostrarFacultad();
