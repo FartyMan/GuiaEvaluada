@@ -39,7 +39,7 @@ public class DaoFacultad extends Conexion{
         }
     }
     
-    public void modificarFacultad(Facultad fa)
+    public void modififaFacultad(Facultad fa)
     {
         try 
         {

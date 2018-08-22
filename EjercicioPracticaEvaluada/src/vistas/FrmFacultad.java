@@ -7,9 +7,7 @@ package vistas;
 
 import com.dao.DaoFacultad;
 import com.modelo.Facultad;
-import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,7 +21,6 @@ public class FrmFacultad extends javax.swing.JInternalFrame {
     public FrmFacultad() {
         initComponents();
         this.jTxtCodigo.setEnabled(false);
-        mostrarFacultad();
     }
 
     DaoFacultad daoFac = new DaoFacultad();
@@ -34,7 +31,7 @@ public class FrmFacultad extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTablaFacultad = new javax.swing.JTable();
+        jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -46,15 +43,10 @@ public class FrmFacultad extends javax.swing.JInternalFrame {
         jTxtNombre = new javax.swing.JTextField();
         jTxtTelefono = new javax.swing.JFormattedTextField();
 
-        setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
-        setResizable(true);
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Gestionar Facultad");
 
-        jTablaFacultad.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -65,12 +57,7 @@ public class FrmFacultad extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTablaFacultad.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTablaFacultadMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jTablaFacultad);
+        jScrollPane1.setViewportView(jTable1);
 
         jLabel2.setText("Codigo: ");
 
@@ -86,18 +73,8 @@ public class FrmFacultad extends javax.swing.JInternalFrame {
         });
 
         jBtnModificar.setText("Modificar");
-        jBtnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnModificarActionPerformed(evt);
-            }
-        });
 
         jBtnEliminar.setText("Eliminar");
-        jBtnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnEliminarActionPerformed(evt);
-            }
-        });
 
         jBtnLimpiar.setText("Limpiar");
 
@@ -170,113 +147,20 @@ public class FrmFacultad extends javax.swing.JInternalFrame {
     private void jBtnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInsertarActionPerformed
         this.agregarFacultad();
     }//GEN-LAST:event_jBtnInsertarActionPerformed
-
-    private void jBtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnModificarActionPerformed
-        this.modificarFacultad(fac);
-    }//GEN-LAST:event_jBtnModificarActionPerformed
-
-    private void jTablaFacultadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaFacultadMouseClicked
-        this.llenarTabla();
-    }//GEN-LAST:event_jTablaFacultadMouseClicked
-
-    private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
-        this.eliminarFacultad();
-    }//GEN-LAST:event_jBtnEliminarActionPerformed
-
-    public void mostrarFacultad()
-    {
-        String[] columnas = {"Codigo","Nombre","Telefono"};
-        Object[] obj = new Object[3];
-        DefaultTableModel tabla = new DefaultTableModel(null,columnas);
-        List lista;
-        try
-        {
-            lista=daoFac.mostrarFacultad();
-            for(int i=0;i<lista.size();i++)
-            {
-                fac = (Facultad) lista.get(i);
-                obj[0]=fac.getCodigoFacultad();
-                obj[1]=fac.getNombre();
-                obj[2]=fac.getTelefono();
-                tabla.addRow(obj);
-            }
-            this.jTablaFacultad.setModel(tabla);
-        }
-        catch (Exception e) 
-        {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
+    
     public void agregarFacultad(){
+        int codigo = Integer.parseInt(jTxtCodigo.getText());
         String nombre = jTxtNombre.getText();
         String telefono = jTxtTelefono.getText();
         
+        fac.setCodigoFacultad(codigo);
         fac.setNombre(nombre);
         fac.setTelefono(telefono);
         
         daoFac.insertarFacultad(fac);
         JOptionPane.showMessageDialog(null, "Ingresado correctamente");
-        mostrarFacultad();
-        limpiar();
     }
-    
-    public void modificarFacultad(Facultad fac)
-    {
-        fac.setNombre(this.jTxtNombre.getText());
-        fac.setTelefono(this.jTxtTelefono.getText());
-        fac.setCodigoFacultad(Integer.parseInt(this.jTxtCodigo.getText()));
-        int siNo = JOptionPane.showConfirmDialog(this, "Desea modificar la facultad", "Modificar Facultad",JOptionPane.YES_NO_OPTION);
-        if(siNo==0)
-        {
-            daoFac.modificarFacultad(fac);
-            JOptionPane.showMessageDialog(null, "Modificado correctamente");
-            mostrarFacultad();
-            limpiar();
-        }
-        else
-        {
-            limpiar();
-        }
-        
-    }
-    
-    public void eliminarFacultad()
-    {
-        fac.setCodigoFacultad(Integer.parseInt(this.jTxtCodigo.getText()));
-        int siNo = JOptionPane.showConfirmDialog(this, "Desea eliminar la facultad", "Eliminar Facultad",JOptionPane.YES_NO_OPTION);
-        if(siNo==0)
-        {
-            daoFac.eliminarFacultad(fac);
-            JOptionPane.showMessageDialog(null, "Eliminada correctamente");
-            mostrarFacultad();
-            limpiar();
-        }
-        else
-        {
-            limpiar();
-        }
-    }
-    
-    public void limpiar()
-    {
-        this.jTxtCodigo.setText("");
-        this.jTxtNombre.setText("");
-        this.jTxtTelefono.setText("");
-    }
-    public void llenarTabla()
-    {
-        int index = this.jTablaFacultad.getSelectedRow();
 
-        if (index > -1) {
-            this.jTxtCodigo.setText(String.valueOf(this.jTablaFacultad.getValueAt(index, 0)));
-            this.jTxtNombre.setText(String.valueOf(this.jTablaFacultad.getValueAt(index, 1)));
-            this.jTxtTelefono.setText(String.valueOf(this.jTablaFacultad.getValueAt(index, 2)));
-           
-            
-
-        }
-    }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnEliminar;
     private javax.swing.JButton jBtnInsertar;
@@ -287,7 +171,7 @@ public class FrmFacultad extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTablaFacultad;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTxtCodigo;
     private javax.swing.JTextField jTxtNombre;
     private javax.swing.JFormattedTextField jTxtTelefono;
