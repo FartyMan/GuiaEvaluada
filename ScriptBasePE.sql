@@ -2,6 +2,11 @@ create database basePE;
 use basePE;
 drop database basepe;
 
+create table usuario(
+username varchar(50) primary key,
+pass varchar(50)
+);
+
 create table facultad(
 codigoFacultad int(11) primary key auto_increment,
 nombre varchar(50),
@@ -216,3 +221,5 @@ drop table facultad;
 drop table carrera;
 
 drop table estudiante;
+
+insert into usuario values("ElBenjaParker","f217c2527772e5db5c34892dc26ac2af")
