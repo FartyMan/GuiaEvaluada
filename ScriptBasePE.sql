@@ -46,7 +46,7 @@ begin
 	insert into facultad (nombre,telefono) values(nombre,telefono);
 end $
 
-drop procedure insertarFacultad;
+--drop procedure modificarFacultad;
 
 delimiter $
 create procedure modificarFacultad(in codigoFac int(11), in nombre varchar(50), in telefono varchar(20))
@@ -210,7 +210,7 @@ call eliminarFacultad(1);
 call mostrarFacultad();
 call buscarFacultad(1);
 
-call insertarCarrera(1,"Licenciatura en Biología",80,1);
+call insertarCarrera(1,"Licenciatura en Biología",80);
 call modificarCarrera(1,"Ingenieria en MicroBiología",80,1);
 call eliminarCarrera(1);
 call mostrarCarrera();
@@ -229,3 +229,14 @@ drop table carrera;
 drop table estudiante;
 
 insert into usuario values("ElBenjaParker","f217c2527772e5db5c34892dc26ac2af")
+insert into usuario values("Admin","123")
+call mostrarFacultad();
+
+nombre varchar(50),
+cantidadMaterias int(11),
+codigoFacultad int(11),
+estado smallint default 1,
+
+insert into carrera values (default,"Licenciatura en Biología",80);
+select * from carrera;
+
