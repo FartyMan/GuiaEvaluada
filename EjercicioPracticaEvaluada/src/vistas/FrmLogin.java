@@ -8,6 +8,7 @@ package vistas;
 import com.dao.DaoUsuario;
 import javax.swing.JOptionPane;
 import org.apache.commons.codec.digest.DigestUtils;
+//import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *

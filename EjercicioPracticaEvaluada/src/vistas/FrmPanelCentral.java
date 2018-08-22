@@ -17,6 +17,10 @@ public class FrmPanelCentral extends javax.swing.JFrame {
     /**
      * Creates new form FrmPanelCentral
      */
+    FrmFacultad admFacultad;
+    FrmCarrera admCarrera;
+    FrmEstudiante admEstudiante;
+    
     public FrmPanelCentral() {
         initComponents();
     }
@@ -30,33 +34,57 @@ public class FrmPanelCentral extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        desktopPane = new javax.swing.JDesktopPane();
+        jDesktopPane = new javax.swing.JDesktopPane();
         jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuFacultad = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuFacultades = new javax.swing.JMenu();
+        jMenuGF = new javax.swing.JMenuItem();
+        jMenuCarreras = new javax.swing.JMenu();
+        jMenuGC = new javax.swing.JMenuItem();
+        jMenuEstudiantes = new javax.swing.JMenu();
+        jMenuGE = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu1.setText("File");
-        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenuFacultades.setText("Facultades");
+        jMenuFacultades.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu1MouseClicked(evt);
+                jMenuFacultadesMouseClicked(evt);
             }
         });
-        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+
+        jMenuGF.setText("Gestionar Facultades");
+        jMenuGF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
+                jMenuGFActionPerformed(evt);
+            }
+        });
+        jMenuFacultades.add(jMenuGF);
+
+        jMenuBar2.add(jMenuFacultades);
+
+        jMenuCarreras.setText("Carreras");
+        jMenuCarreras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuCarrerasActionPerformed(evt);
             }
         });
 
-        jMenuFacultad.setText("Facultad");
-        jMenu1.add(jMenuFacultad);
+        jMenuGC.setText("Gestionar Carreras");
+        jMenuCarreras.add(jMenuGC);
 
-        jMenuBar2.add(jMenu1);
+        jMenuBar2.add(jMenuCarreras);
 
-        jMenu2.setText("Edit");
-        jMenuBar2.add(jMenu2);
+        jMenuEstudiantes.setText("Estudiantes");
+
+        jMenuGE.setText("Gestionar Estudiantes");
+        jMenuGE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuGEActionPerformed(evt);
+            }
+        });
+        jMenuEstudiantes.add(jMenuGE);
+
+        jMenuBar2.add(jMenuEstudiantes);
 
         setJMenuBar(jMenuBar2);
 
@@ -64,35 +92,75 @@ public class FrmPanelCentral extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jDesktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+            .addComponent(jDesktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-    }//GEN-LAST:event_jMenu1ActionPerformed
+    private void jMenuFacultadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuFacultadesMouseClicked
+        
+    }//GEN-LAST:event_jMenuFacultadesMouseClicked
 
-    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-        FrmFacultad facu = new FrmFacultad();
-        this.desktopPane.add(facu);
-        facu.setVisible(true);
-    }//GEN-LAST:event_jMenu1MouseClicked
+    private void jMenuGEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuGEActionPerformed
+        if(this.admEstudiante == null || this.admEstudiante.isClosed())
+        {
+            try {
+                this.admEstudiante = new FrmEstudiante();
+            } catch (Exception e) 
+            {
+                
+            }
+            this.admEstudiante.setVisible(true);
+            this.jDesktopPane.add(admEstudiante);
+        }
+    }//GEN-LAST:event_jMenuGEActionPerformed
+
+    private void jMenuGFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuGFActionPerformed
+        if(this.admFacultad == null || this.admFacultad.isClosed())
+        {
+            try {
+                this.admFacultad = new FrmFacultad();
+            } catch (Exception e) 
+            {
+                
+            }
+            this.admFacultad.setVisible(true);
+            this.jDesktopPane.add(admFacultad);
+        }
+    }//GEN-LAST:event_jMenuGFActionPerformed
+
+    private void jMenuCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCarrerasActionPerformed
+        if(this.admCarrera == null || this.admCarrera.isClosed())
+        {
+            try {
+                this.admCarrera = new FrmCarrera();
+            } catch (Exception e) 
+            {
+                
+            }
+            this.admCarrera.setVisible(true);
+            this.jDesktopPane.add(admCarrera);
+        }
+    }//GEN-LAST:event_jMenuCarrerasActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane desktopPane;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JDesktopPane jDesktopPane;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuFacultad;
+    private javax.swing.JMenu jMenuCarreras;
+    private javax.swing.JMenu jMenuEstudiantes;
+    private javax.swing.JMenu jMenuFacultades;
+    private javax.swing.JMenuItem jMenuGC;
+    private javax.swing.JMenuItem jMenuGE;
+    private javax.swing.JMenuItem jMenuGF;
     // End of variables declaration//GEN-END:variables
 
 }
