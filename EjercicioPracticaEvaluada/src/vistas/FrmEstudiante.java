@@ -351,15 +351,15 @@ public class FrmEstudiante extends javax.swing.JInternalFrame {
         String intereses = "";
          if(this.jChDeportes.isSelected())
          {
-             intereses+=" Deportes";
+             intereses+="Deportes, ";
          }
          if(this.jChMusica.isSelected())
          {
-             intereses+=" Musica";
+             intereses+="Musica, ";
          }
          if(this.jChArte.isSelected())
          {
-             intereses+=" Arte";
+             intereses+="Arte, ";
          }
          
          int item = carrera.getCodigoCarrera();
