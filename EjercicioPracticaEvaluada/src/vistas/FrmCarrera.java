@@ -22,20 +22,28 @@ public class FrmCarrera extends javax.swing.JInternalFrame {
     public FrmCarrera() throws Exception {
         initComponents();
         mostrarCarrera();
-        cargarCombo(jCmbFacultad, daoFac.mostrarFacultad());
+        cargarCombo();
+        this.jBtnModificar.setEnabled(false);
+        this.jBtnEliminar.setEnabled(false);
     }
-    
-    private void cargarCombo(JComboBox combo, List<Facultad> list) throws Exception {
-
-        for (Facultad item : list) {
-            combo.addItem(new ComboItem(item.getCodigoFacultad(), item.getNombre()));
-        }
-
-    }
-    
     DaoCarrera daoCar = new DaoCarrera();
     DaoFacultad daoFac = new DaoFacultad();
     Carrera car = new Carrera();
+    Facultad fac = new Facultad();
+    private List comboItems;
+    private void cargarCombo() {
+        this.jCmbFacultad.removeAllItems();
+        
+        comboItems = daoFac.mostrarFacultad();
+        Facultad facultad;
+        for (Object item : comboItems) {
+            facultad = (Facultad) item;
+            this.jCmbFacultad.addItem(facultad.getNombre());
+        }
+    }
+    
+    
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -206,7 +214,8 @@ public class FrmCarrera extends javax.swing.JInternalFrame {
                 obj[0] = car.getCodigoCarrera();
                 obj[1] = car.getNombre();
                 obj[2] = car.getCantidadMaterias();
-                obj[3] = daoFac.mostrarFacultad();
+                fac = daoFac.buscarFacultad(fac.getCodigoFacultad());
+                obj[3] = car.getNombre();
                 tabla.addRow(obj);
             }
             this.jTablaCarrera.setModel(tabla);
@@ -221,22 +230,14 @@ public class FrmCarrera extends javax.swing.JInternalFrame {
     }
     
     public void agregar(){
-        int codigo = Integer.parseInt(jTxtCodigo.getText());
+        Facultad facultad = (Facultad) this.comboItems.get(this.jCmbFacultad.getSelectedIndex());
         String nombre = jTxtNombre.getText();
         int cantidad = Integer.parseInt(jSpCantidadMateria.getValue().toString());
-        String facultad = jCmbFacultad.getSelectedItem().toString();
-        ComboItem item = new ComboItem();
-
-        for (int i = 0; i < jCmbFacultad.getItemCount(); i++) {
-            if (facultad.equals(jCmbFacultad.getItemAt(i).toString())) {
-                //item = jCmbFacultad.getModel().getElementAt(i);
-            }
-        }
+        int item = facultad.getCodigoFacultad();
         
-        car.setCodigoCarrera(codigo);
         car.setNombre(nombre);
         car.setCantidadMaterias(cantidad);
-        car.setCodigoFacultad(item.getValue());
+        car.setCodigoFacultad(item);
         
         daoCar.insertarCarrera(car);
         JOptionPane.showMessageDialog(null, "Ingresado correctamente");

@@ -70,6 +70,11 @@ public class FrmPanelCentral extends javax.swing.JFrame {
         });
 
         jMenuGC.setText("Gestionar Carreras");
+        jMenuGC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuGCActionPerformed(evt);
+            }
+        });
         jMenuCarreras.add(jMenuGC);
 
         jMenuBar2.add(jMenuCarreras);
@@ -147,6 +152,20 @@ public class FrmPanelCentral extends javax.swing.JFrame {
             this.jDesktopPane.add(admCarrera);
         }
     }//GEN-LAST:event_jMenuCarrerasActionPerformed
+
+    private void jMenuGCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuGCActionPerformed
+         if(this.admCarrera == null || this.admCarrera.isClosed())
+        {
+            try {
+                this.admCarrera = new FrmCarrera();
+            } catch (Exception e) 
+            {
+                
+            }
+            this.admCarrera.setVisible(true);
+            this.jDesktopPane.add(admCarrera);
+        }
+    }//GEN-LAST:event_jMenuGCActionPerformed
 
     /**
      * @param args the command line arguments

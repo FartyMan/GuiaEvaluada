@@ -29,7 +29,7 @@ public class Conexion {
         try 
         {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/basepe","root","");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/basepe","root","chuchinglin");
         } 
         catch (SQLException | ClassNotFoundException e) 
         {

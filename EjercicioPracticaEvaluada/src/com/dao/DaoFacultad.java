@@ -44,17 +44,18 @@ public class DaoFacultad extends Conexion{
         try 
         {
             this.conectar();
-            String sql = "call modififaFacultad(?,?,?)";
+            String sql = "call modificarFacultad(?,?,?)";
             PreparedStatement pre = this.getCon().prepareCall(sql);
-            pre.setString(1, fa.getNombre());
-            pre.setString(2, fa.getTelefono());
-            pre.setInt(3, fa.getCodigoFacultad());
+            pre.setInt(1, fa.getCodigoFacultad());
+            pre.setString(2, fa.getNombre());
+            pre.setString(3, fa.getTelefono());
+            
             
             pre.executeUpdate();
         } 
         catch (Exception e) 
         {
-            JOptionPane.showMessageDialog(null, "Error al insertar: "+e);
+            JOptionPane.showMessageDialog(null, "Error al modificar: "+e);
         }
         finally
         {

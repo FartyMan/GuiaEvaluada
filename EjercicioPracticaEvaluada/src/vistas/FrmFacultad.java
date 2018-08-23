@@ -178,6 +178,8 @@ public class FrmFacultad extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+    
+    
     public void agregarFacultad(){
         String nombre = jTxtNombre.getText();
         String telefono = jTxtTelefono.getText();
