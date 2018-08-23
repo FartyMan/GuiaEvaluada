@@ -244,16 +244,16 @@ public class DaoCarrera extends Conexion{
         return car;
     }
     
-    public List buscarCarreraTabla(int idCarrera)
+    public List buscarCarreraTabla(String carrera)
     {
         List<Carrera> lista = new ArrayList();
         ResultSet res;
         try 
         {
             this.conectar();
-            String sql = "call buscarCarrera(?);";
+            String sql = "call buscarCarreraNombre(?);";
             PreparedStatement pre = this.getCon().prepareCall(sql);
-            pre.setInt(1,idCarrera);
+            pre.setString(1,carrera);
             res = pre.executeQuery();
             while(res.next())
             {
