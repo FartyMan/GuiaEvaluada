@@ -96,11 +96,29 @@ begin
 	update facultad set estado=1 where codigoFacultad=codigoFac;
 end $
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- Carrera --
 delimiter $
 create procedure insertarCarrera(in nombre varchar(50), in cantidadMaterias int(11), in codigoFac int(11))
 begin
-	insert into carrera (nombre,cantidadMaterias,codigoFactura) values(nombre,cantidadMaterias,codigoFac);
+	insert into carrera (nombre,cantidadMaterias,codigoFacultad) values(nombre,cantidadMaterias,codigoFac);
 end $
 
 drop procedure insertarCarrera;
@@ -210,11 +228,13 @@ call eliminarFacultad(1);
 call mostrarFacultad();
 call buscarFacultad(1);
 
-call insertarCarrera(1,"Licenciatura en Biología",80,1);
+call insertarCarrera("Licenciatura en Biología",80,3);
 call modificarCarrera(1,"Ingenieria en MicroBiología",80,1);
 call eliminarCarrera(1);
 call mostrarCarrera();
 call buscarCarrera(1);
+
+select * from carrera
 
 call insertarEstudiante(1,"Jennifer Ramírez",22,"femenino",8.0,"MarioKart/Reggaeton",1);
 call modificarEstudiante(1,"Jennifer Ramírez",22,"femenino",8.3,"MarioKart/Reggaeton",1);
@@ -229,3 +249,7 @@ drop table carrera;
 drop table estudiante;
 
 insert into usuario values("ElBenjaParker","f217c2527772e5db5c34892dc26ac2af")
+
+select f.codigoFacultad, f.nombre, c.nombre from facultad f
+inner join carrera c on c.codigoFacultad = f.codigoFacultad;
+
