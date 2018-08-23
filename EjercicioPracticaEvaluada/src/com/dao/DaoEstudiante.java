@@ -52,14 +52,15 @@ public class DaoEstudiante extends Conexion{
         try 
         {
             this.conectar();
-            String sql = "call modificarEstudiante(?,?,?,?)";
+            String sql = "call modificarEstudiante(?,?,?,?,?,?,?)";
             PreparedStatement pre = this.getCon().prepareCall(sql);
-            pre.setString(1, es.getNombre());
-            pre.setInt(2, es.getEdad());
-            pre.setString(3, es.getGenero());
-            pre.setDouble(4, es.getCum());
-            pre.setString(5, es.getIntereses());
-            pre.setInt(6, es.getCodigoCarrera());
+            pre.setInt(1, es.getCodigoEstudiante());
+            pre.setString(2, es.getNombre());
+            pre.setInt(3, es.getEdad());
+            pre.setString(4, es.getGenero());
+            pre.setDouble(5, es.getCum());
+            pre.setString(6, es.getIntereses());
+            pre.setInt(7, es.getCodigoCarrera());
             
             pre.executeUpdate();
         } 

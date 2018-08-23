@@ -35,6 +35,8 @@ public class FrmEstudiante extends javax.swing.JInternalFrame {
         tabla();
         this.jTxtCarnet.setEnabled(false);
         cargarCombo();
+        this.jBtnModificar.setEnabled(false);
+        this.jBtnEliminar.setEnabled(false);
     }
     
     private void cargarCombo() {
@@ -155,6 +157,11 @@ public class FrmEstudiante extends javax.swing.JInternalFrame {
         });
 
         jBtnLimpiar.setText("Limpiar");
+        jBtnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnLimpiarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Gestionar Estudiante");
@@ -199,7 +206,6 @@ public class FrmEstudiante extends javax.swing.JInternalFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(jRdFemenino))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jChDeportes)
                                         .addGap(18, 18, 18)
                                         .addComponent(jChMusica)
@@ -319,8 +325,11 @@ public class FrmEstudiante extends javax.swing.JInternalFrame {
     
     public void llenarTextField()
     {
+        this.jBtnModificar.setEnabled(true);
+        this.jBtnEliminar.setEnabled(true);
+        this.jBtnInsertar.setEnabled(false);
         int index = this.jTablaEstudiante.getSelectedRow();
-
+        
         if (index > -1) {
             this.jTxtCarnet.setText(String.valueOf(this.jTablaEstudiante.getValueAt(index, 0)));
             this.jTxtNombre.setText(String.valueOf(this.jTablaEstudiante.getValueAt(index, 1)));
@@ -335,8 +344,45 @@ public class FrmEstudiante extends javax.swing.JInternalFrame {
                 this.jRdFemenino.setSelected(true);
             }
             this.jTxtCum.setText(String.valueOf(this.jTablaEstudiante.getValueAt(index, 4)));
-            this.jComboCarrera.getModel().setSelectedItem(String.valueOf(this.jTablaEstudiante.getValueAt(index, 5)));
+            String intereses = String.valueOf(this.jTablaEstudiante.getValueAt(index, 5));
+            String[] s = intereses.split(",");
+            this.jChArte.setSelected(false);
+            this.jChDeportes.setSelected(false);
+            this.jChMusica.setSelected(false);
+            for (int i = 0; i < s.length; i++) {
+                String comprobante = s[i].trim();
+                if(comprobante.equals("Musica"))
+                {
+                    this.jChMusica.setSelected(true);
+                }
+                if(comprobante.equals("Deportes"))
+                {
+                    this.jChDeportes.setSelected(true);
+                }
+                if(comprobante.equals("Arte"))
+                {
+                    this.jChDeportes.setSelected(true);
+                }
+            }
+            this.jComboCarrera.getModel().setSelectedItem(String.valueOf(this.jTablaEstudiante.getValueAt(index, 6)));
         }
+    }
+    
+    public void limpiar()
+    {
+        this.jTxtCarnet.setText("");
+        this.jTxtNombre.setText("");
+        this.jTxtCum.setText("");
+        this.jChArte.setSelected(false);
+        this.jChMusica.setSelected(false);
+        this.jChDeportes.setSelected(false);
+        this.jRdFemenino.setSelected(false);
+        this.jRdMasculino.setSelected(false);
+        this.jComboCarrera.setSelectedIndex(0);
+        this.jSpEdad.setValue(17);
+        this.jBtnInsertar.setEnabled(true);
+        this.jBtnEliminar.setEnabled(false);
+        this.jBtnModificar.setEnabled(false);
     }
     
     public void insercion()
@@ -377,55 +423,43 @@ public class FrmEstudiante extends javax.swing.JInternalFrame {
         tabla();
     }
     
-    private void jBtnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInsertarActionPerformed
-        insercion();
-    }//GEN-LAST:event_jBtnInsertarActionPerformed
-
-    private void jBtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnModificarActionPerformed
+    public void modificar()
+    {
         try 
         {
             int codigo = Integer.parseInt(jTxtCarnet.getText());
-        String nombre = jTxtNombre.getText();
-        int edad = Integer.parseInt(jSpEdad.getValue().toString());
-        String genero = jRdMasculino.isSelected() ? jRdMasculino.getText() :
-                jRdFemenino.getText();
-        double cum = Double.parseDouble(jTxtCum.getText());
+            String nombre = jTxtNombre.getText();
+            int edad = Integer.parseInt(jSpEdad.getValue().toString());
+            String genero = jRdMasculino.isSelected() ? jRdMasculino.getText() :
+            jRdFemenino.getText();
+            double cum = Double.parseDouble(jTxtCum.getText());
 
-        String intereses = "";
-         if(this.jChDeportes.isSelected())
-         {
-             intereses+="Deportes, ";
-         }
-         if(this.jChMusica.isSelected())
-         {
-             intereses+="Musica, ";
-         }
-         if(this.jChArte.isSelected())
-         {
-             intereses+="Arte, ";
-         }
-         
-         String carrera = jComboCarrera.getSelectedItem().toString();
-         ComboItem item = new ComboItem();
-         
-          for (int i = 0; i < jComboCarrera.getItemCount(); i++) 
+            String intereses = "";
+        if(this.jChDeportes.isSelected())
         {
-            if(carrera.equals(jComboCarrera.getItemAt(i).toString()))
-            {
-                //item = jComboCarrera.getModel().getElementAt(i);
-            }
+            intereses+="Deportes, ";
         }
+        if(this.jChMusica.isSelected())
+        {
+            intereses+="Musica, ";
+        }
+        if(this.jChArte.isSelected())
+        {
+            intereses+="Arte, ";
+        }
+     
+        Carrera carrera = (Carrera) this.comboItems.get(this.jComboCarrera.getSelectedIndex());
          
-         est.setNombre(nombre);
-         est.setEdad(edad);
-         est.setGenero(genero);
-         est.setCum(cum);
-         est.setIntereses(intereses);
-         //est.setCarrera(item.getValue());
-         est.setCodigoEstudiante(codigo);
+        est.setNombre(nombre);
+        est.setEdad(edad);
+        est.setGenero(genero);
+        est.setCum(cum);
+        est.setIntereses(intereses);
+        est.setCodigoCarrera(carrera.getCodigoCarrera());
+        est.setCodigoEstudiante(codigo);
          
-         daoEst.modificarEstudiante(est);
-         JOptionPane.showMessageDialog(null, "Empleado modificado Exitosamente", "Actualizacion Correcta",
+        daoEst.modificarEstudiante(est);
+        JOptionPane.showMessageDialog(null, "Empleado modificado Exitosamente", "Actualizacion Correcta",
                     JOptionPane.INFORMATION_MESSAGE);
             
         } catch (Exception e)
@@ -435,18 +469,20 @@ public class FrmEstudiante extends javax.swing.JInternalFrame {
                     "Modificacion Fallido",
                     JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jBtnModificarActionPerformed
-
-    private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
+        tabla();
+    }
+    
+    public void eliminar()
+    {
         try 
         {
-             int codigo = Integer.parseInt(jTxtCarnet.getText());
+             est.setCodigoEstudiante(Integer.parseInt(this.jTxtCarnet.getText()));
             
              int SioNo = JOptionPane.showConfirmDialog(this, "¿Desea Eliminar definitivamente el empleado?", "Eliminar Empleado", JOptionPane.YES_NO_OPTION);
 
             if (SioNo == 0)
             {
-                //daoEst.eliminarEstudiante(codigo);
+                daoEst.deleteLogicoEstudiante(est);
                 JOptionPane.showMessageDialog(null, "Se ha eliminado Exitosamente");
                 tabla();
             }
@@ -456,8 +492,18 @@ public class FrmEstudiante extends javax.swing.JInternalFrame {
                     "Ocurrio un error Eliminando",
                     "Imposible Eliminar",
                     JOptionPane.ERROR_MESSAGE);
-        }
- 
+        }   
+    }
+    
+    private void jBtnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInsertarActionPerformed
+        insercion();
+    }//GEN-LAST:event_jBtnInsertarActionPerformed
+
+    private void jBtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnModificarActionPerformed
+        modificar();
+    }//GEN-LAST:event_jBtnModificarActionPerformed
+
+    private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
             
     }//GEN-LAST:event_jBtnEliminarActionPerformed
 
@@ -468,6 +514,10 @@ public class FrmEstudiante extends javax.swing.JInternalFrame {
     private void jComboCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboCarreraActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboCarreraActionPerformed
+
+    private void jBtnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLimpiarActionPerformed
+        limpiar();
+    }//GEN-LAST:event_jBtnLimpiarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
